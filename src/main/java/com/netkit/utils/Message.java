@@ -4,7 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 
+ * 基础消息格式
+ * <pre>
+ * header 格式：head（长度4） + body length（长度4） + type（长度3） + id（长度4） + time（长度7） + cmd（长度2）
+ * message 格式：header（长度24） + body + tail（长度1） + verify（长度1）
+ * </pre>
  * @author xuliang
  * @since 2019年7月3日 上午10:24:23
  *
@@ -152,11 +156,13 @@ public class Message {
         return this.verify;
     }
     
-    /**
-     * header 组成：head（长度4） + body length（长度4） + type（长度3） + id（长度4） + time（长度7） + cmd（长度2）
-     */
+    private static final int HEADER_SIZE = 24;
+    public static int getHeaderSize(){
+        return HEADER_SIZE;
+    }
+    
     public byte[] getHeaderByte(){
-        byte[] header = new byte[24];
+        byte[] header = new byte[HEADER_SIZE];
         System.arraycopy(this.head, 0, header, 0, this.head.length);
         
         int len = getLen();
