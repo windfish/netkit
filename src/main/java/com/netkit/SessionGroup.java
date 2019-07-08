@@ -63,7 +63,7 @@ public class SessionGroup {
     }
     
     public synchronized Session remove(Serializable key){
-        Session s = sessionMap.get(key);
+        Session s = sessionMap.remove(key);
         if(s == null){
             return null;
         }

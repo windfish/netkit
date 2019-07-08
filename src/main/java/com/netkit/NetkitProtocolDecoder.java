@@ -72,9 +72,10 @@ public class NetkitProtocolDecoder extends FrameDecoder {
             message.setType(type);
             
             if(Message.isPrintLog(message.getCmd())){
-                LOGGER.debug("socket message decoder: [{}] - [{}] - cmd[{}] - len[{}] - tail[{}] - verify[{}] - header[{}]",
+                LOGGER.debug("socket message decoder: [{}] - [{}] - cmd[{}] - len[{}] - tail[{}] - verify[{}] - header[{}] - body[{}]",
                                 channel.getRemoteAddress().toString(), channel.getId(), message.getCmd(), message.getLen(),
-                                DebugUtil.toHex(message.getTail()), DebugUtil.toHex(message.getVerify()), DebugUtil.toHex(message.getHeaderByte(), ' '));
+                                DebugUtil.toHex(message.getTail()), DebugUtil.toHex(message.getVerify()), 
+                                DebugUtil.toHex(message.getHeaderByte(), ' '), DebugUtil.toHex(message.getBody(), ' '));
             }
             
             return message;

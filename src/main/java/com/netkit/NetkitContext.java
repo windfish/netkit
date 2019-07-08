@@ -25,7 +25,7 @@ public class NetkitContext {
     private ExecutorService bossExecutor = null;
     private ExecutorService workerExecutor = null;      // 工作线程池
 
-    private final Map<Integer, Class<Action>> registerActions = new ConcurrentHashMap<Integer, Class<Action>>();
+    private final Map<Integer, Class<? extends Action>> registerActions = new ConcurrentHashMap<Integer, Class<? extends Action>>();
     private final List<ActionFilter> actionFilters = new LinkedList<ActionFilter>();
     private final Map<String, Object> attributes = new ConcurrentHashMap<String, Object>();
     private final SessionGroup sessionGroup = new SessionGroup();
@@ -76,9 +76,9 @@ public class NetkitContext {
         return Collections.unmodifiableList(actionFilters);
     }
 
-    public void registerAction(int cmd, Class<Action> claxx) {
+    public void registerAction(int cmd, Class<? extends Action> claxx) {
         synchronized (registerActions) {
-            Class<Action> clazz = registerActions.get(cmd);
+            Class<?> clazz = registerActions.get(cmd);
             if (clazz != null) {
                 registerActions.remove(cmd);
             }
@@ -86,7 +86,7 @@ public class NetkitContext {
         }
     }
 
-    public Class<Action> lookupRegisteredAction(int cmd) {
+    public Class<? extends Action> lookupRegisteredAction(int cmd) {
         return registerActions.get(cmd);
     }
 

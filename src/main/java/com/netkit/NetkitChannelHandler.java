@@ -53,6 +53,8 @@ class NetkitChannelHandler extends SimpleChannelUpstreamHandler {
         }catch (Exception ex) {
             logger.warn("handle message received event listener exception", ex);
         }
+        
+        this.session.onRecvMessage(message);
     }
     
     /**

@@ -79,7 +79,7 @@ public class NetkitServer {
         
         this.channel = this.bootstrap.bind(new InetSocketAddress(host, port));
         
-        // 心跳线程，30s一次
+        // 心跳检测线程，30s一次
         this.heartbeatService.scheduleAtFixedRate(new HeartbeatListener(context), 30L, 30L, TimeUnit.SECONDS);
     }
     

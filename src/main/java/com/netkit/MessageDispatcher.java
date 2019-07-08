@@ -36,6 +36,7 @@ public class MessageDispatcher {
             Action action = getAction(context, cmd);
             if(action == null){
                 LOGGER.debug(" - cmd["+cmd+"] action is null");
+                return;
             }
             action.setSession(session);
             Iterator<ActionFilter> it = null;
@@ -68,7 +69,7 @@ public class MessageDispatcher {
             return action;
         }
         // 反射生成action
-        Class<Action> clazz = context.lookupRegisteredAction(cmd);
+        Class<? extends Action> clazz = context.lookupRegisteredAction(cmd);
         if(clazz == null){
             return null;
         }
