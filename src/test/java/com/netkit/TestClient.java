@@ -25,7 +25,7 @@ public class TestClient {
     }
     
     private static void client(NetkitClient client, long userId) throws Exception{
-        Session session = client.createSession();
+        final Session session = client.createSession();
         session.setAttribute(ServerMessageID.SessionAttributes.KEY_USER_ID, userId);
         
         Runnable r = new Runnable() {
